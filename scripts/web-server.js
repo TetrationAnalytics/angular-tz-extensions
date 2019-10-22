@@ -3,6 +3,7 @@
 var util = require('util'),
     http = require('http'),
     fs = require('fs'),
+    _path = require('path'),
     url = require('url'),
     events = require('events');
 
@@ -166,7 +167,7 @@ StaticServlet.prototype.sendRedirect_ = function(req, res, redirectUrl) {
 
 StaticServlet.prototype.sendFile_ = function(req, res, path) {
   var self = this;
-  var file = fs.createReadStream(path);
+  var file = fs.createReadStream(_path.resolve(path));
   res.writeHead(200, {
     'Content-Type': StaticServlet.
       MimeMap[path.split('.').pop()] || 'text/plain'
